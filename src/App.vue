@@ -1,16 +1,16 @@
 <template>
   <v-app>
-    <v-app-bar dense :app="true" color="#161747" height="85px" dark >
+    <v-app-bar fixed dense :app="true" color="#161747" height="85px" dark>
       <v-toolbar-title class="headline text-uppercase">
         <img
           class="align-center"
-          src="../public/img/icons/logo.png"
+          src="../src/assets/newlogo.png"
           alt="icone QR CHECK"
           width="60"
           height="60"
         />
       </v-toolbar-title>
-      <v-app-bar-title style="font-size:x-large;  margin-left:15px;">QR Check</v-app-bar-title>
+      <v-app-bar-title style="font-size: x-large">QR Check</v-app-bar-title>
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
@@ -18,66 +18,67 @@
     </v-app-bar>
 
     <v-content>
-      <div v-if="bottomNav == 'read'">
-          <qrcode-stream @decode="onDecode"></qrcode-stream>
-        </div>
       <v-container fluid>
         <div v-if="bottomNav == 'home'">
-          <p class="subtitle-2 text-center mt-5">
+          <p class="subtitle-3 text-center mt-12">
             Bem-vindo(a) ao sistema de ponto eletrônico.<br />Clique em escanear
             e aponte a câmera para o QR Code
           </p>
         </div>
-        <div class="text-center">
-          <v-btn value="read"
-          class="white--text"
-          color="#0080ff"
-          elevation="2"
-          rounded
-          x-large
-          >Escanear
-          </v-btn>
+        <div v-if="bottomNav == 'home'">
+          <div class="text-center">
+            <v-btn
+              value="read"
+              class="white--text"
+              color="#0080ff"
+              elevation="2"
+              rounded
+              x-large
+              >Escanear
+            </v-btn>
+          </div>
         </div>
-         
-      
+
         <div v-if="bottomNav == 'read'">
+          <br>
           <qrcode-stream @decode="onDecode"></qrcode-stream>
         </div>
-        <div v-if="bottomNav == 'other'">
+
+        <div  class="text-center float">
+      <img
+        class="img-fluid"
+        src="../src/assets/logo_ses_am_branco_hz.png"
+        alt="icone QR CHECK"
+        width="80%"
+      />
+    </div>
+
+
+         <!-- <div v-if="bottomNav == 'other'">
           <h2>Sobre</h2>
 
-          <!-- <p>
+         <p>
             Aplicação desenvolvida por<a
               href="https://twitter.com/__si_mon"
               target="_blank"
               >Simon</a
             >.
-          </p> -->
+          
           <p>
             Ele usa projetos de código aberto
             <a href="https://vuejs.org/" target="_blank">Vue.js</a> &amp;
             <a href="http://vuetifyjs.com/" target="_blank">Vuetify</a>
           </p>
-          <!-- <p>
+        
             Este aplicativo não possui rastreador. Código publicado em
             <a target="_blank" href="https://github.com/guizmo51/qrcodereader"
-              >Github</a
-            >
-          </p> -->
-        </div>
-  
+              >Github</a>
+          </p> 
+        </div>-->
+
       </v-container>
     </v-content>
     
-        <div style="margin-bottom: 55px;" class="text-center float" >
-          <img
-          class=" img-fluid "
-          src="../src/assets/logo_ses_am_branco_hz.png"
-          alt="icone QR CHECK"
-          width="360"
-          />
-        </div>
-
     <v-bottom-navigation
       background-color="#161747"
       height="85px"
@@ -85,8 +86,6 @@
       app
       v-model="bottomNav"
     >
-    
-    
       <v-btn value="home">
         <span>Registros</span>
         <v-icon>mdi-account-search</v-icon>
@@ -100,16 +99,8 @@
         <v-icon>mdi-logout</v-icon>
       </v-btn>
     </v-bottom-navigation>
-   
-        
-
-        
-
   </v-app>
-  
 </template>
-
-
 
 <script>
 import { QrcodeStream } from "vue-qrcode-reader";
