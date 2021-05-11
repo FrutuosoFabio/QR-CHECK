@@ -1,19 +1,45 @@
 <template>
   <v-app>
-    <v-app-bar dense :app="true" color="primary" dark>
+    <v-app-bar dense :app="true" color="#161747" height="85px" dark >
       <v-toolbar-title class="headline text-uppercase">
-        <v-icon>mdi-qrcode</v-icon> Leitor de QRCode
+        <img
+          class="align-center"
+          src="../public/img/icons/logo.png"
+          alt="icone QR CHECK"
+          width="60"
+          height="60"
+        />
       </v-toolbar-title>
+      <v-app-bar-title style="font-size:x-large;  margin-left:15px;">QR Check</v-app-bar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
     </v-app-bar>
+
     <v-content>
+      <div v-if="bottomNav == 'read'">
+          <qrcode-stream @decode="onDecode"></qrcode-stream>
+        </div>
       <v-container fluid>
         <div v-if="bottomNav == 'home'">
-          <p>
-            O objetivo deste aplicativo é permitir a leitura de QRCode e não
-            possui rastreador. Em breve será facilmente instalável para ser
-            usado offline!
+          <p class="subtitle-2 text-center mt-5">
+            Bem-vindo(a) ao sistema de ponto eletrônico.<br />Clique em escanear
+            e aponte a câmera para o QR Code
           </p>
         </div>
+        <div class="text-center">
+          <v-btn value="read"
+          class="white--text"
+          color="#0080ff"
+          elevation="2"
+          rounded
+          x-large
+          >Escanear
+          </v-btn>
+        </div>
+         
+      
         <div v-if="bottomNav == 'read'">
           <qrcode-stream @decode="onDecode"></qrcode-stream>
         </div>
@@ -38,34 +64,55 @@
               >Github</a
             >
           </p> -->
-
         </div>
+  
       </v-container>
     </v-content>
+    
+        <div style="margin-bottom: 55px;" class="text-center float" >
+          <img
+          class=" img-fluid "
+          src="../src/assets/logo_ses_am_branco_hz.png"
+          alt="icone QR CHECK"
+          width="360"
+          />
+        </div>
+
     <v-bottom-navigation
-      background-color="primary"
+      background-color="#161747"
+      height="85px"
       dark
       app
       v-model="bottomNav"
     >
+    
+    
       <v-btn value="home">
-        <span>Home</span>
-        <v-icon>mdi-home</v-icon>
+        <span>Registros</span>
+        <v-icon>mdi-account-search</v-icon>
       </v-btn>
       <v-btn value="read">
-        <span>Ler QRCode</span>
+        <span>Escanear</span>
         <v-icon>mdi-qrcode</v-icon>
       </v-btn>
       <v-btn value="other">
-        <span>Sobre</span>
-        <v-icon>mdi-information</v-icon>
+        <span>Sair</span>
+        <v-icon>mdi-logout</v-icon>
       </v-btn>
     </v-bottom-navigation>
+   
+        
+
+        
+
   </v-app>
+  
 </template>
 
+
+
 <script>
-import { QrcodeStream,} from "vue-qrcode-reader";
+import { QrcodeStream } from "vue-qrcode-reader";
 export default {
   name: "App",
   components: { QrcodeStream },
