@@ -1,5 +1,15 @@
 <template>
   <v-app>
+    <v-banner v-if="deferredPrompt" color="info" dark class="text-left">
+      Get our free app. It won't take up space on your phone and also works
+      offline!
+
+      <template v-slot:actions>
+        <v-btn text @click="dismiss">Dismiss</v-btn>
+        <v-btn text @click="install">Install</v-btn>
+      </template>
+    </v-banner>
+
     <v-app-bar fixed dense :app="true" color="#161747" height="85px" dark>
       <v-toolbar-title class="headline text-uppercase">
         <img
@@ -44,7 +54,8 @@
           <qrcode-stream @decode="onDecode"></qrcode-stream>
         </div>
 
-        <div class="text-center float"> <!--"text-center float">-->
+        <div class="text-center float">
+          <!--"text-center float">-->
           <img
             style="max-width: 300px"
             class="img-fluid"
@@ -81,15 +92,36 @@
 
 <script>
 import { QrcodeStream } from "vue-qrcode-reader";
+import Cookies from "js-cookie";
 export default {
   name: "App",
   components: { QrcodeStream },
   data() {
     return {
       bottomNav: "recent",
+      deferredPrompt: null,
     };
   },
+  created() {
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      if (Cookies.get("add-to-home-screen") === undefined) {
+        this.deferredPrompt = e;
+      }
+    });
+    window.addEventListener("appinstalled", () => {
+      this.deferredPrompt = null;
+    });
+  },
   methods: {
+    async dismiss() {
+      Cookies.set("add-to-home-screen", null, { expires: 15 });
+      this.deferredPrompt = null;
+    },
+    async install() {
+      this.deferredPrompt.prompt();
+    },
     onDecode(s) {
       alert(s);
     },

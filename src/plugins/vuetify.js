@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
-import fr from 'vuetify/es5/locale/fr';
+import pt from 'vuetify/es5/locale/pt';
 
 Vue.use(Vuetify);
 
 export default new Vuetify({
     lang: {
-      locales: { fr },
-      current: 'fr',
+      locales: { pt },
+      current: 'pt',
     },
 });

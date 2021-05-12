@@ -1,4 +1,4 @@
-# qrcodereader
+# QR-Check
 
 ## Project setup
 ```

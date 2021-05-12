@@ -1,7 +1,10 @@
 {
-  "name": "qrcodereader",
+  "name": "QR-Check",
   "version": "0.1.0",
   "private": true,
+  "theme_color": "#2196f3",
+  "background_color": "#161747",
+  "display": "fullscreen",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

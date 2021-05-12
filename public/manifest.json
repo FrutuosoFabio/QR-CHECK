@@ -1,0 +1,9 @@
+{
+    "name": "QR-Check",
+    "short_name": "QR-Check",
+    "theme_color": "#4DBA87",
+    "display": "standalone",
+    "background_color": "#161747",
+    "start_url": "/?source=pwa",
+    "scope": "Service-Worker-Allowed"
+}
